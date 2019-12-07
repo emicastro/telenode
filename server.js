@@ -1,14 +1,19 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const router = express.Router()
+const response = require('./network/response')
 
 var app = express()
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:false}))
 app.use(router)
 
-router.get('/', (req, res) => res.send('Get petition'))
+router.get('/', (req, res) => {
+    
+    res.send('Get petition')
+})
 
-router.post('/', (req, res) => res.send('Post petition'))
+router.post('/', (req, res) => response.success )
 
 router.put('/', (req, res) => res.send('Put petition'))
 
