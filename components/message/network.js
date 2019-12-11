@@ -1,5 +1,6 @@
 const express = require('express')
 const response = require('../../network/response')
+const controller = require('./controller')
 const router = express.Router()
 
 router.get('/', (req, res) => {
@@ -10,11 +11,13 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    if(req.query.error == 'ok') {
-        response.error(req, res, 'Unespected Error', 500, '')
-    } else {
-        response.success(req, res, 'Message created', 201)
-    }
+    controller.addMessage(req.body.user, req.body.message)
+        .then((fullMessage) => {
+            response.success(req, res, fullMessage, 201)
+        })
+        .catch(e => {
+            response.error(req, res, 'Invalid information', 400, 'Error into controller')
+        })
 })
 
 module.exports = router
