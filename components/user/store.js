@@ -10,8 +10,7 @@ function listUsers(selectedUser) {
     if (selectedUser !== null) {
         filter = {user: selectedUser}
     }
-    const users = await Model.find(filter)
-    return users
+    return Model.find(filter)
 }
 
 module.exports = {

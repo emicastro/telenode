@@ -7,7 +7,7 @@ async function connect(url) {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
-    console.log('[db] connected successfully')
+    console.log('[DB] successfully connected')
 }
 
 module.exports = connect
