@@ -30,7 +30,17 @@ router.patch('/:id', (req, res) => {
             response.success(req, res, data, 200)
         })
         .catch(e => {
-            response.error(req, res, 'Error interno', 500, e)
+            response.error(req, res, 'Internal error', 500, e)
+        })
+})
+
+router.delete('/:id', (req, res) => {
+    controller.deleteMessage(req.params.id)
+        .then(() => {
+            response.success(req, res, `Message ${req.params.id} deleted.`, 200)
+        })
+        .catch(e => {
+            response.error(req, res, 'Internal error', 500, e)
         })
 })
 
