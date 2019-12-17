@@ -2,13 +2,17 @@ const express = require('express')
 const app = express()
 const server = require('http').Server(app)
 
+const config = require('./config')
+
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const socket = require('./socket')
 const db = require('./db')
 const router = require('./network/routes')
 
-db('mongodb+srv://db_user:BhJi8ywvZrT7YQc5@cluster0-lxzrb.mongodb.net/telegrom_db')
+db(config.dbUrl)
 
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
@@ -17,8 +21,8 @@ socket.connect(server)
 
 router(app)
 
-app.use('/app', express.static('public'))
+app.use(`${config.publicPath}`, express.static('public'))
 
-server.listen(3000, function() {
-    console.log('Server running on http://localhost:3000')
+server.listen(config.port, function() {
+    console.log(`Server running on ${config.host}.${config.port}`)
 })
