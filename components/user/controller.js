@@ -1,22 +1,24 @@
-const store = require('./store')
+const store = require('./store');
 
 function addUser(name) {
-    if (!name) {
-        return Promise.reject('Invalid name')
-    }
-    const user = {
-        name,
-    }
-    return store.add(user)
+  if (!name) {
+    // eslint-disable-next-line prefer-promise-reject-errors
+    return Promise.reject('Invalid name');
+  }
+  const user = {
+    name,
+  };
+  return store.add(user);
 }
 
 function listUsers(name) {
-    return new Promise((resolve, reject) => {
-        resolve(store.list(name))
-    })
+  // eslint-disable-next-line no-unused-vars
+  return new Promise((resolve, _reject) => {
+    resolve(store.list(name));
+  });
 }
 
 module.exports = {
-    addUser,
-    listUsers,
-}
+  addUser,
+  listUsers,
+};

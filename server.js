@@ -1,28 +1,30 @@
-const express = require('express')
-const app = express()
-const server = require('http').Server(app)
+const express = require('express');
 
-const config = require('./config')
+const app = express();
+const server = require('http').Server(app);
 
-const cors = require('cors')
-const bodyParser = require('body-parser')
-const socket = require('./socket')
-const db = require('./db')
-const router = require('./network/routes')
 
-db(config.dbUrl)
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const config = require('./config');
+const socket = require('./socket');
+const db = require('./db');
+const router = require('./network/routes');
 
-app.use(cors())
+db(config.dbUrl);
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:false}))
+app.use(cors());
 
-socket.connect(server)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-router(app)
+socket.connect(server);
 
-app.use(`${config.publicPath}`, express.static('public'))
+router(app);
 
-server.listen(config.port, function() {
-    console.log(`Server running on ${config.host}.${config.port}`)
-})
+app.use(`${config.publicPath}`, express.static('public'));
+
+server.listen(config.port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Server running on ${config.host}.${config.port}`);
+});

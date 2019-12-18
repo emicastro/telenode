@@ -1,13 +1,14 @@
-const db = require('mongoose')
+const db = require('mongoose');
 
-db.Promise = global.Promise
+db.Promise = global.Promise;
 
 async function connect(url) {
-    await db.connect(url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    console.log('[DB] successfully connected')
+  await db.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  // eslint-disable-next-line no-console
+  console.log('[DB] successfully connected');
 }
 
-module.exports = connect
+module.exports = connect;
